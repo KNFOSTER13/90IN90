@@ -1,1 +1,15 @@
-
+body {
+  font-family: "Instrument Serif", serif;
+  background-color: #2C0838;
+  color: #FFF6E9;
+  text-align: center;
+  padding-top: 10vh;
+}
+h1 {
+  font-size: 3rem;
+  letter-spacing: 1px;
+}
+p {
+  font-size: 1.25rem;
+  color: #FFD9C0;
+}
