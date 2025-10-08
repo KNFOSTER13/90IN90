@@ -82,8 +82,8 @@
                 </div>
     
                 <div class="header-buttons flex items-center gap-2">
-                    <button id="subscribe-btn" class="btn btn-subscribe" aria-label="Join the sprint">
-                        <span class="uppercase">Join The Sprint</span>
+                    <button id="subscribe-btn" class="btn btn-luminous" aria-label="Join the sprint">
+                        <span class="uppercase">Join The Sprint ✦</span>
                     </button>
                 </div>
             </div>
@@ -100,20 +100,26 @@
                 <p id="hero-tagline" class="text-2xl font-medium mt-4 mx-auto uppercase tracking-wider hero-anim-item" style="color: var(--text-secondary); transition-delay: 0.6s;">
                     A 90-Day Sprint Through Ideas, Images, & Inquiry
                 </p>
-                <div class="mt-8 w-full mx-auto hero-anim-item" style="transition-delay: 0.8s;">
-                    <div class="flex justify-between gap-4">
-                        <button id="hero-subscribe-btn" class="btn btn-secondary font-dm-serif-text uppercase font-semibold text-xl tracking-widest flex-1 py-4">Newsletter</button>
-                        <button id="show-welcome-btn" class="btn btn-primary font-dm-serif-text uppercase font-semibold text-xl tracking-widest flex-1 py-4">Why?</button>
-                        <a href="sms-optin.html" class="btn btn-secondary font-dm-serif-text uppercase font-semibold text-xl tracking-widest flex-1 py-4">SMS Alerts 📱</a>
+                
+                <div class="mt-10 w-full mx-auto hero-anim-item flex flex-col items-center gap-6" style="transition-delay: 0.8s;">
+                    <!-- Primary CTA -->
+                    <button id="hero-subscribe-btn" class="btn btn-luminous text-xl font-bold uppercase tracking-widest px-10 py-4">Join the Sprint ✦</button>
+                
+                    <!-- Secondary Links -->
+                    <div class="flex items-center justify-center gap-x-8 gap-y-2 flex-wrap mt-4">
+                        <button id="newsletter-secondary-btn" class="link-secondary">Newsletter</button>
+                        <a href="sms-optin.html" class="link-secondary">SMS Alerts</a>
+                        <button id="show-welcome-btn" class="link-secondary">Why?</button>
                     </div>
                 </div>
+
                 <strong id="challenge-dates" class="text-2xl font-extralight block mt-8 tracking-widest" style="color: var(--text-secondary);"></strong>
                 <div class="w-96 mx-auto mt-8" style="height: 2px; background-color: #CE84EE;"></div>
                  <div id="weekly-theme-container" class="inline-block mx-auto mt-8 px-8 py-4" style="background-color: #00ad9b; border-radius: 100px;">
                     <p id="weekly-theme" class="text-2xl" style="color: #FEF8F2;"></p>
                 </div>
                 <div class="mt-12 text-left max-w-2xl mx-auto">
-                    <p class="font-dm-serif-text text-4xl text-text-secondary">Practice over polish. Process over product.</p>
+                    <p class="font-dm-serif-text text-4xl" style="color: #F4E7C8;">Practice over polish. Process over product.</p>
                     <p class="mt-4 text-lg text-text-muted">For ninety days, I’m publishing a map of my mind that forms a constellation of thought around culture, power, and meaning. This project isn't about mastery. It's about momentum. It’s about staying in practice, and (re)building the muscle of inquiry one post at a time.</p>
                 </div>
             </div>
@@ -388,7 +394,7 @@
                 'subscribe-modal', 'close-subscribe', 'sms-modal', 'close-sms-modal', 'toast', 'toast-message',
                 'toast-icon', 'content-feed', 'day-dots-container', 'schedule-toggle', 'schedule-options', 'feed-announcer',
                 'welcome-modal', 'show-welcome-btn', 'close-welcome-modal', 'auto-save-status', 'save-draft-btn',
-                'drafts-section', 'draft-entries', 'scheduled-section', 'scheduled-entries', 'weekly-theme', 'sprint-details'
+                'drafts-section', 'draft-entries', 'scheduled-section', 'scheduled-entries', 'weekly-theme', 'sprint-details', 'newsletter-secondary-btn'
             ].map(id => [id.replace(/-(\w)/g, (m, g) => g.toUpperCase()), document.getElementById(id)])
         );
         
@@ -906,8 +912,8 @@
                 });
             };
             
+            setupModal(DOMElements.subscribeModal, [DOMElements.subscribeBtn, DOMElements.heroSubscribeBtn, DOMElements.newsletterSecondaryBtn], DOMElements.closeSubscribe);
             setupModal(DOMElements.welcomeModal, [DOMElements.showWelcomeBtn], DOMElements.closeWelcomeModal);
-            setupModal(DOMElements.subscribeModal, [DOMElements.subscribeBtn, DOMElements.heroSubscribeBtn], DOMElements.closeSubscribe);
 
             DOMElements.entryForm?.addEventListener('submit', handleAdminFormSubmit);
             DOMElements.entryForm?.addEventListener('input', debounce(saveDraftToLocalStorage, 2000));
