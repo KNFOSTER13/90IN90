@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kimberly's Creative Sprint: A 90-day practice: daily videos, essays, livestreams, and experiments.</title>
+    <meta name="description" content="Join Kimberly's 90-day creative challenge. Outrunning perfectionism one creative entry at a time.">
+    <meta name="theme-color" content="#341047">
+    <meta name="robots" content="index, follow">
+
+    <link rel="canonical" href="https://knf.kim/90in90">
+    <meta property="og:title" content="Kimberly's Creative Sprint - 90 Days of Ideas">
+    <meta property="og:description" content="Join Kimberly's 90-day creative challenge. Outrunning perfectionism one creative entry at a time.">
+    <meta property="og:image" content="https://knfoster13.github.io/HQ/WARMKDROP6.png">
+    <meta property="og:image:alt" content="Kimberly's 90-day Creative Sprint">
+    <meta property="og:url" content="https://knf.kim/90in90">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Kimberly's Creative Sprint">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Kimberly's Creative Sprint - 90 Days of Ideas">
+    <meta name="twitter:description" content="Join Kimberly's 90-day creative challenge. Outrunning perfectionism one creative entry at a time.">
+    <meta name="twitter:image" content="https://knfoster13.github.io/HQ/KCS-WARM.png">
+    <meta name="twitter:creator" content="@kimberlynfoster">
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "Kimberly's Creative Sprint",
+      "description": "90 Days of Ideas",
+      "url": "https://knf.kim/90in90",
+      "publisher": {
+        "@type": "Person",
+        "name": "Kimberly Nicole Foster"
+      }
+    }
+    </script>
+    <script type="application/ld+json" id="itemListSchema"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Inter:wght@200;400;500;600;700;800&family=Newsreader:ital,opsz,wght@0,6..72,200;0,6..72,300;1,6..72,200;1,6..72,300&family=Instrument+Serif:ital@0;1&family=DM+Serif+Text&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="bg-bg-dark">
+    <a href="#content-feed" class="skip-to-content">Skip to content</a>
+
+    <header class="sticky top-0 z-50 frosted-header" role="banner">
+        <nav class="max-w-6xl mx-auto px-4 py-4" aria-label="Primary">
+            <div class="header-nav flex items-center justify-between">
+                <a href="#" class="header-logo flex items-center gap-2" aria-label="Creative Sprint Home">
+                    <img src="https://knfoster13.github.io/90IN90/images/90in90transparent.png" alt="Logo" class="h-10 w-auto">
+                    <span class="hidden sm:inline font-medium text-xl tracking-wider" style="color: var(--text-primary);">Kimberly's Creative Sprint</span>
+                </a>
+    
+                <div class="header-counters hidden md:flex flex-col items-center">
+                    <div class="flex items-center gap-6 text-center">
+                        <div class="flex flex-col">
+                            <span id="header-day" class="text-base font-bold">1</span>
+                            <span class="text-xs uppercase tracking-wider text-muted">Day</span>
+                        </div>
+                        <div class="h-6 w-px bg-white/10"></div>
+                        <div class="flex flex-col">
+                             <span id="header-entries" class="text-base font-bold">0</span>
+                             <span class="text-xs uppercase tracking-wider text-muted">Entries</span>
+                        </div>
+                        <div class="h-6 w-px bg-white/10"></div>
+                        <div class="flex flex-col">
+                             <span id="header-streak" class="text-base font-bold">0</span>
+                             <span class="text-xs uppercase tracking-wider text-muted">Streak</span>
+                        </div>
+                    </div>
+                </div>
+    
+                <div class="header-buttons flex items-center gap-2">
+                    <button id="subscribe-btn" class="btn btn-subscribe" aria-label="Join the sprint">
+                        <span class="uppercase">Join The Sprint</span>
+                    </button>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="max-w-6xl mx-auto px-4 py-8" role="main" id="main-content">
+        <section class="text-center pt-12 pb-12 flex flex-col justify-center items-center min-h-[80vh]" aria-labelledby="hero-title">
+            <div class="max-w-4xl mx-auto">
+                <img src="https://knfoster13.github.io/90IN90/images/90in90horizontaloutline4.png" alt="Kimberly's Creative Sprint" class="hero-image mx-auto w-full max-w-2xl mb-8" fetchpriority="high" decoding="async" loading="eager">
+                <p class="font-newsreader text-4xl font-light hero-anim-item w-3/4 mx-auto" style="color: var(--text-secondary); transition-delay: 0.4s; letter-spacing: 0.05em;">
+                    <i>by</i> Kimberly Nicole <i>Foster</i>
+                </p>
+                <p id="hero-tagline" class="text-2xl font-medium mt-4 mx-auto uppercase tracking-wider hero-anim-item" style="color: var(--text-secondary); transition-delay: 0.6s;">
+                    A 90-Day Sprint Through Ideas, Images, & Inquiry
+                </p>
+                <div class="mt-8 w-full mx-auto hero-anim-item" style="transition-delay: 0.8s;">
+                    <div class="flex justify-between gap-4">
+                        <button id="hero-subscribe-btn" class="btn btn-secondary font-dm-serif-text uppercase font-semibold text-xl tracking-widest flex-1 py-4">Newsletter</button>
+                        <button id="show-welcome-btn" class="btn btn-primary font-dm-serif-text uppercase font-semibold text-xl tracking-widest flex-1 py-4">Why?</button>
+                        <a href="sms-optin.html" class="btn btn-secondary font-dm-serif-text uppercase font-semibold text-xl tracking-widest flex-1 py-4">SMS Alerts 📱</a>
+                    </div>
+                </div>
+                <strong id="challenge-dates" class="text-2xl font-extralight block mt-8 tracking-widest" style="color: var(--text-secondary);"></strong>
+                <div class="w-96 mx-auto mt-8" style="height: 2px; background-color: #CE84EE;"></div>
+                 <div id="weekly-theme-container" class="inline-block mx-auto mt-8 px-6 py-2" style="background-color: #00ad9b; border-radius: 100px;">
+                    <p id="weekly-theme" class="text-lg" style="color: #FEF8F2;"></p>
+                </div>
+            </div>
+        </section>
+
+        <section id="sprint-details" class="text-center fade-in-section max-w-3xl mx-auto hidden">
+             <div id="day-dots-container" class="flex gap-1.5 justify-center flex-wrap max-w-full py-2 px-4 mt-8"></div>
+
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8 max-w-2xl mx-auto" role="region" aria-label="Challenge statistics">
+                <div class="card p-4 text-center stat-card"><div class="text-2xl font-semibold text-accent" id="today-count" aria-live="polite">0</div><div class="text-sm text-muted">Today's Entries</div></div>
+                <div class="card p-4 text-center stat-card"><div class="text-2xl font-semibold text-cta" id="streak-count" aria-live="polite">0</div><div class="text-sm text-muted">Day Streak</div></div>
+                <div class="card p-4 text-center stat-card"><div class="text-2xl font-semibold text-success" id="free-count" aria-live="polite">0</div><div class="text-sm text-muted">Free Content</div></div>
+                <div class="card p-4 text-center stat-card"><div class="text-2xl font-semibold text-warning" id="paid-count" aria-live="polite">0</div><div class="text-sm text-muted">Premium</div></div>
+            </div>
+        </section>
+
+        <section id="admin-panel" class="hidden transition-all duration-500 card" aria-label="Admin panel">
+            <div class="p-6">
+                <h2 class="font-semibold mb-4 flex items-center gap-2 brand-font"><svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path></svg>Add or Edit Entry</h2>
+                <form id="entry-form" class="space-y-4" novalidate>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div><label for="entry-title" class="block text-sm font-medium mb-1">Title *</label><input type="text" id="entry-title" class="form-input" required maxlength="200" aria-required="true"><span class="text-xs text-red-400 hidden mt-1" id="title-error"></span></div>
+                        <div><label for="entry-type" class="block text-sm font-medium mb-1">Content Type *</label><select id="entry-type" class="form-input" aria-required="true"><option>Video</option><option>Podcast</option><option>Essay</option><option>Social Post</option><option>Newsletter</option><option>Tutorial</option><option>Other</option></select></div>
+                    </div>
+                    <div><label for="entry-description" class="block text-sm font-medium mb-1">Description *</label><textarea id="entry-description" class="form-input" rows="2" required maxlength="500" aria-required="true"></textarea><span class="text-xs text-red-400 hidden mt-1" id="description-error"></span></div>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div><label for="entry-link" class="block text-sm font-medium mb-1">Link *</label><input type="url" id="entry-link" class="form-input" required aria-required="true"><span class="text-xs text-red-400 hidden mt-1" id="link-error"></span></div>
+                        <div><label for="entry-image" class="block text-sm font-medium mb-1">Image URL</label><input type="url" id="entry-image" class="form-input"><span class="text-xs text-red-400 hidden mt-1" id="image-error"></span></div>
+                        <div><label for="entry-access" class="block text-sm font-medium mb-1">Access Level</label><select id="entry-access" class="form-input"><option>Free</option><option>Paid</option></select></div>
+                    </div>
+                    
+                    <div class="pt-4 border-t border-white/10"><label class="flex items-center gap-2 cursor-pointer"><input type="checkbox" id="schedule-toggle" class="form-checkbox h-4 w-4 rounded bg-white/10 border-white/20 text-accent focus:ring-accent"><span class="text-sm font-medium">Schedule for later</span></label></div>
+                    <div id="schedule-options" class="hidden grid grid-cols-2 gap-4">
+                        <div><label for="schedule-date" class="block text-sm font-medium mb-1">Date</label><input type="date" id="schedule-date" class="form-input"></div>
+                        <div><label for="schedule-time" class="block text-sm font-medium mb-1">Time (Local)</label><input type="time" id="schedule-time" class="form-input"></div>
+                    </div>
+                    
+                    <div class="flex items-center gap-4 pt-2">
+                        <button type="submit" id="publish-btn" class="btn btn-primary" disabled><span class="loading-spinner hidden"></span><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path></svg><span id="publish-btn-text">Publish It!</span></button>
+                        <button type="button" id="save-draft-btn" class="btn btn-secondary">Save as Draft</button>
+                        <button type="button" id="cancel-edit-btn" class="btn btn-secondary hidden">Cancel Edit</button>
+                        <button type="button" id="clear-data-btn" class="btn btn-secondary !bg-red-500/10 !text-red-400 !border-red-500/20 ml-auto">Clear All Data</button>
+                    </div>
+                    <div id="auto-save-status" class="text-xs text-muted h-4 mt-1 text-right"></div>
+                </form>
+            </div>
+            <div id="drafts-section" class="hidden p-6 pt-0">
+                <h3 class="text-xl font-bold mb-4 brand-font text-gradient">Drafts</h3>
+                <div id="draft-entries" class="space-y-2"></div>
+            </div>
+            <div id="scheduled-section" class="hidden p-6 pt-0">
+                <h3 class="text-xl font-bold mb-4 brand-font text-gradient">Scheduled Entries</h3>
+                <div id="scheduled-entries" class="space-y-4"></div>
+            </div>
+        </section>
+
+        <section class="mb-6" aria-label="Search, filter and sort entries">
+            <div class="card p-4">
+                <div class="grid md:grid-cols-3 gap-4">
+                    <div class="relative md:col-span-1">
+                        <input type="text" id="search-input" class="form-input pl-10" placeholder="Search entries..." aria-label="Search entries">
+                        <svg class="w-5 h-5 absolute left-3 top-1/2 -translate-y-1/2 text-muted" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                    </div>
+                    <div class="flex items-center gap-2 justify-between md:col-span-2">
+                        <div class="flex gap-2 flex-wrap" role="group" aria-label="Filter options">
+                            <button class="filter-btn active" data-filter="all" aria-pressed="true">All</button>
+                            <button class="filter-btn" data-filter="Video" aria-pressed="false">Videos</button>
+                            <button class="filter-btn" data-filter="Podcast" aria-pressed="false">Podcasts</button>
+                            <button class="filter-btn" data-filter="Essay" aria-pressed="false">Essays</button>
+                             <button class="filter-btn" data-filter="Free" aria-pressed="false">Free</button>
+                            <button class="filter-btn" data-filter="Paid" aria-pressed="false">Premium</button>
+                        </div>
+                        <select id="sort-select" class="form-input w-40" aria-label="Sort entries">
+                            <option value="newest">Newest</option>
+                            <option value="oldest">Oldest</option>
+                            <option value="most-loved">❤️ Most Loved</option>
+                             <option value="trending">🔥 Trending</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="content-feed" class="space-y-8" aria-label="Content feed" aria-busy="true" aria-live="polite">
+            <span id="feed-announcer" class="sr-only" aria-live="assertive"></span>
+            
+            <div id="skeleton-loaders">
+                <h2 class="font-semibold mb-4 brand-font animate-pulse">Loading entries...</h2>
+                <div class="space-y-6">
+                    <div class="skeleton-card"><div class="flex flex-col md:flex-row gap-4"><div class="md:w-48 h-32 skeleton-line rounded-lg"></div><div class="flex-1 space-y-2"><div class="skeleton-line w-3/4"></div><div class="skeleton-line w-1/2"></div><div class="skeleton-line w-full"></div></div></div></div>
+                    <div class="skeleton-card"><div class="flex flex-col md:flex-row gap-4"><div class="md:w-48 h-32 skeleton-line rounded-lg"></div><div class="flex-1 space-y-2"><div class="skeleton-line w-3/4"></div><div class="skeleton-line w-1/2"></div><div class="skeleton-line w-full"></div></div></div></div>
+                </div>
+            </div>
+            
+            <div id="today-section" class="hidden max-w-4xl mx-auto"><h2 class="font-semibold mb-4 flex items-center gap-3 brand-font">
+                <span class="relative flex h-3 w-3"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span><span class="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span></span>
+                <span class="text-white text-gradient">Today's Entries</span>
+            </h2><div id="today-entries" class="grid gap-6"></div></div>
+            <div id="previous-section" class="hidden max-w-4xl mx-auto">
+                <h2 class="font-semibold mb-4 brand-font text-gradient">Previous Entries</h2>
+                <div id="previous-entries" class="grid gap-6"></div>
+                <div id="load-more-container" class="text-center mt-8"></div>
+            </div>
+            
+            <div id="empty-state" class="text-center py-12 hidden"><svg class="w-24 h-24 mx-auto mb-4 text-muted opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"></path></svg><p class="text-lg text-muted" id="empty-state-message">No entries yet. Check back soon!</p></div>
+        </section>
+        
+        <nav class="mt-12" aria-label="Quick links">
+            <h2 class="font-semibold mb-6 text-center brand-font text-gradient">Quick Links</h2>
+            <div class="grid grid-cols-1 md-grid-cols-3 gap-4 max-w-3xl mx-auto">
+                <a href="https://www.patreon.com/kimberlynfoster" class="card p-6 flex items-center gap-4 hover:!scale-105" rel="noopener noreferrer" target="_blank">
+                    <div class="p-3 rounded-full bg-pink-500/20"><svg class="w-6 h-6 text-pink-400" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true"><path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clip-rule="evenodd"/></svg></div>
+                    <span class="font-medium">Support on Patreon</span>
+                </a>
+                <a href="sms-optin.html" class="card p-6 flex items-center gap-4 hover:!scale-105">
+                    <div class="p-3 rounded-full bg-blue-500/20"><svg class="w-6 h-6 text-blue-400" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true"><path d="M3.5 2A1.5 1.5 0 0 0 2 3.5v9A1.5 1.5 0 0 0 3.5 14h9a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 12.5 2h-9zM3 3.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5v-9z"/><path d="M5.5 7a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5z"/></svg></div>
+                    <span class="font-medium">Get Text Alerts</span>
+                </a>
+                <a href="https://kimberlynfoster.substack.com" class="card p-6 flex items-center gap-4 hover:!scale-105" rel="noopener noreferrer" target="_blank">
+                    <div class="p-3 rounded-full bg-green-500/20"><svg class="w-6 h-6 text-green-400" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true"><path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/><path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/></svg></div>
+                    <span class="font-medium">Newsletter</span>
+                </a>
+            </div>
+        </nav>
+    </main>
+
+    <footer class="text-center py-8 mt-12 text-sm text-muted" role="contentinfo">
+        <div class="flex justify-center gap-2 mb-4">
+            <button id="admin-signin-btn" class="btn btn-secondary !bg-transparent !text-sm !p-2" title="Admin sign in" aria-label="Admin sign in">
+                <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 11.5a3.5 3.5 0 1 1 3.163-5H14l1.5 1.5L14 9.5l-1-1-1 1-1-1-1 1-1-1-1 1H6.663a3.5 3.5 0 0 1-3.163 2zM2.5 9a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/></svg>
+            </button>
+            
+            <button id="admin-signout-btn" class="btn btn-secondary !bg-transparent !text-sm !p-2 hidden" title="Admin sign out" aria-label="Admin sign out">
+                 <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
+            </button>
+        </div>
+        <p>&copy; 2025 Kimberly's Creative Sprint. All rights reserved.</p>
+    </footer>
+
+    <div id="welcome-modal" class="fixed inset-0 bg-black/50 backdrop-blur-sm hidden flex items-center justify-center p-4 z-50" role="dialog" aria-labelledby="welcome-modal-title" aria-modal="true">
+        <div class="card p-8 relative max-w-2xl w-full">
+            <button id="close-welcome-modal" class="absolute top-4 right-4 text-muted hover:text-primary transition-colors" aria-label="Close modal"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button>
+            <h2 id="welcome-modal-title" class="font-semibold mb-6 brand-font text-gradient text-center">What is the Creative Sprint?</h2>
+            <p class="text-lg text-text-secondary mb-4 mx-auto italic">
+                For the next 90 days, I'm throwing myself into an experiment in making. The Creative Sprint isn't about perfection or polish, it's about rhythm and rigor. Each week I'll take on a theme—pop culture, politics, or the messy intersections of gender, race, capitalism, and art—and build a body of work around it. Videos, essays, livestreams, podcasts, posts—each orbiting the same core questions, each in conversation with the others.
+            </p>
+            <p class="text-lg text-text-secondary mb-4 mx-auto">
+                You'll be able to trace the references, inspirations, and footnotes in real time. Not just what I think—but how I think.
+            </p>
+            <p class="text-xl font-semibold text-gradient my-6 italic text-center mx-auto">
+                This is practice, but also proof: ambitious ideas deserve ambitious output.
+            </p>
+            <p class="text-lg text-text-secondary mb-4 mx-auto">
+                By the end of 90 days, I'll have more than a stack of work: I'll have a living archive—a record of the thinkers, artists, and texts I've been in dialogue with, and a map of where my ideas might go next.
+            </p>
+             <p class="text-lg text-text-secondary mb-4 mx-auto">
+                This isn't about chasing an algorithm. This is about giving creativity structure and space to breathe—and seeing what happens.
+            </p>
+            <p class="text-lg text-text-secondary mx-auto">
+                The Sprint is an invitation: to run toward the work instead of away from it.
+            </p>
+            <img src="https://knfoster13.github.io/HQ/KNFSIGNATURE.png" alt="Kimberly's signature" class="mx-auto mt-8 w-48" loading="lazy">
+        </div>
+    </div>
+
+    <div id="subscribe-modal" class="fixed inset-0 bg-black/50 backdrop-blur-sm hidden flex items-center justify-center p-4 z-50" role="dialog" aria-labelledby="subscribe-modal-title" aria-modal="true">
+        <div class="card p-6 relative max-w-lg w-full">
+            <button id="close-subscribe" class="absolute top-4 right-4 text-muted hover:text-primary transition-colors" aria-label="Close modal"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button>
+            <h2 id="subscribe-modal-title" class="font-semibold mb-4 text-center brand-font text-gradient">Join the Newsletter!</h2>
+            <p class="text-muted mb-6 text-center mx-auto">Get exclusive updates, behind-the-scenes content, and early access to entries straight to your inbox!</p>
+            <div class="bg-white rounded-xl p-1"><iframe src="https://kimberlynfoster.substack.com/embed" width="100%" height="320" style="border:1px solid #EEE; background:white;" frameborder="0" scrolling="no" title="Subscribe to newsletter"></iframe></div>
+        </div>
+    </div>
+
+    <div id="sms-modal" class="fixed inset-0 bg-black/50 backdrop-blur-sm hidden flex items-center justify-center p-4 z-50" role="dialog" aria-labelledby="sms-modal-title" aria-modal="true">
+        <div class="card p-8 relative max-w-lg w-full">
+            <button id="close-sms-modal" class="absolute top-4 right-4 text-muted hover:text-primary transition-colors" aria-label="Close SMS modal"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button>
+            <h2 id="sms-modal-title" class="font-semibold mb-2 text-center brand-font text-gradient">Get SMS Alerts</h2>
+            <p class="text-muted mb-6 text-center mx-auto">Be the first to know when new entries go live, get reminders, and receive exclusive tips.</p>
+            <div class="tm-widget-container">
+                <script src="https://widgets.textmagic.com/widget-script.js" data-code="ca975eb0fab8d2e" data-type="subscribe" defer></script>
+            </div>
+        </div>
+    </div>
+
+    <div id="toast" class="toast" role="alert" aria-live="polite">
+        <svg id="toast-icon" class="w-5 h-5 text-success" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+        <span id="toast-message">Action completed successfully!</span>
+        <button class="dismiss-toast ml-auto text-muted hover:text-primary">&times;</button>
+    </div>
+
+    <script type="module" src="js/main.js"></script>
+</body>
+</html>
