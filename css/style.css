@@ -4,13 +4,13 @@
   --bg-edge: #241546;
   --surface: rgba(55, 37, 99, 0.3);
   --surface-hover: rgba(68, 36, 84, 0.5);
-  --accent: #d4a5ff;
+  --accent: #F8EFFF;
   --accent-bright: #e6c7ff;
   --accent-start: #dab6ff;
   --accent-end:   #f0d4e8;
   --cta: #e5b8ff;
   --cta-hover: #d9a6ff;
-  --text-primary: #FEF8F2;
+  --text-primary: #F4E7C8;
   --text-secondary: #E8D5F2;
   --text-muted: #B8A1C8;
   --tag-free: #a6f5c3;
@@ -210,19 +210,38 @@ p { max-width: 65ch; }
   box-shadow: none;
 }
 
-.btn-subscribe {
-  background: #00ad95;
-  color: #FEF8F2;
-  font-weight: 500;
-  box-shadow: 0 4px 15px rgba(0, 173, 149, 0.4);
+.btn-luminous {
+  background: linear-gradient(135deg, #fffade, #e8d5b5, #cb98e1);
+  color: #330948;
   border-radius: 12px;
-  border: 1px solid var(--text-primary);
+  box-shadow: 0 4px 15px rgba(203, 152, 225, 0.3), 0 0 20px rgba(255, 250, 222, 0.4);
+  font-weight: 700;
+  border: none;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
-.btn-subscribe:hover:not(:disabled) {
-  transform: scale(1.05);
-  background: #00c4a8;
-  box-shadow: 0 0 20px rgba(0, 173, 149, 0.5);
+
+.btn-luminous:hover:not(:disabled) {
+  transform: scale(1.05) translateY(-2px);
+  box-shadow: 0 8px 25px rgba(203, 152, 225, 0.4), 0 0 30px rgba(255, 250, 222, 0.6);
 }
+
+.link-secondary {
+  color: var(--text-muted);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s ease, text-decoration 0.3s ease;
+  background: none;
+  border: none;
+  padding: 0.5rem;
+  cursor: pointer;
+}
+
+.link-secondary:hover {
+  color: var(--text-primary);
+  text-decoration: underline;
+}
+
+
 .btn:hover svg {
     transform: scale(1.1) rotate(3deg);
 }
@@ -365,3 +384,4 @@ p { max-width: 65ch; }
 main > section + section, main > section + nav {
   margin-top: 6rem;
 }
+
