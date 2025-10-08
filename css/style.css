@@ -1,15 +1,32 @@
-body {
-  font-family: "Instrument Serif", serif;
-  background-color: #2C0838;
-  color: #FFF6E9;
-  text-align: center;
-  padding-top: 10vh;
+/* --- 90IN90 Base Styles --- */
+:root {
+  --background: #2C0838;
+  --accent: #FFD9C0;
+  --text: #FFF6E9;
+  --font-serif: "Instrument Serif", serif;
 }
+
+body {
+  background-color: var(--background);
+  color: var(--text);
+  font-family: var(--font-serif);
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  text-align: center;
+}
+
 h1 {
   font-size: 3rem;
-  letter-spacing: 1px;
+  margin-bottom: 0.5rem;
 }
+
 p {
+  color: var(--accent);
   font-size: 1.25rem;
-  color: #FFD9C0;
+  max-width: 500px;
+  line-height: 1.6;
 }
