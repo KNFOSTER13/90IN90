@@ -107,7 +107,7 @@
                         <a href="sms-optin.html" class="btn btn-secondary font-dm-serif-text uppercase font-semibold text-xl tracking-widest flex-1 py-4">SMS Alerts 📱</a>
                     </div>
                 </div>
-                <strong id="challenge-dates" class="text-2xl font-extralight block mt-8 tracking-widest" style="color: var(--text-secondary);">October 9 &mdash; January 6, 2026</strong>
+                <strong id="challenge-dates" class="text-2xl font-extralight block mt-8 tracking-widest" style="color: var(--text-secondary);"></strong>
                 <div class="w-96 mx-auto mt-8" style="height: 2px; background-color: #CE84EE;"></div>
                  <div id="weekly-theme-container" class="inline-block mx-auto mt-8 px-6 py-2" style="background-color: #00ad9b; border-radius: 100px;">
                     <p id="weekly-theme" class="text-lg" style="color: #FEF8F2;"></p>
@@ -333,7 +333,7 @@
             appId: "1:762035393571:web:7d474a6a57cc031b860d96"
         };
         const ADMIN_EMAIL = "submissions@forharriet.com";
-        const START_DATE = new Date('2025-10-09T00:00:00');
+        const START_DATE = new Date('2025-10-13T00:00:00');
         const TOTAL_DAYS = 90;
         const END_DATE = new Date(START_DATE.getTime() + (TOTAL_DAYS * 24 * 60 * 60 * 1000));
         const MS_PER_DAY = 1000 * 60 * 60 * 24;
@@ -407,10 +407,29 @@
         // --- UI & FEEDBACK FUNCTIONS ---
         const updateWeeklyTheme = () => {
             const now = new Date();
-            if (now < START_DATE || now > END_DATE || !DOMElements.weeklyTheme) {
-                if(DOMElements.weeklyTheme) DOMElements.weeklyTheme.parentElement.style.display = 'none';
+            
+            if (!DOMElements.weeklyTheme) return;
+            
+            // If before start date, show coming soon message
+            if (now < START_DATE) {
+                const daysUntilStart = Math.ceil((START_DATE - now) / MS_PER_DAY);
+                let startMessage = `Sprint Starts in ${daysUntilStart} days!`;
+                if (daysUntilStart === 1) {
+                    startMessage = `Sprint Starts Tomorrow!`;
+                } else if (daysUntilStart <= 0) {
+                    startMessage = `Sprint Starts Today!`;
+                }
+                DOMElements.weeklyTheme.innerHTML = `<strong class="font-bold">${startMessage}</strong> First theme: ${weeklyThemes[0]}`;
+                DOMElements.weeklyTheme.parentElement.style.display = 'inline-block';
                 return;
             }
+            
+            // If after end date, hide it
+            if (now > END_DATE) {
+                DOMElements.weeklyTheme.parentElement.style.display = 'none';
+                return;
+            }
+            
             const daysIntoSprint = Math.floor((now - START_DATE) / MS_PER_DAY);
             const weekNumber = Math.floor(daysIntoSprint / 7);
 
@@ -418,7 +437,8 @@
             if (weekNumber >= 0 && weekNumber < weeklyThemes.length) {
                 themeText = weeklyThemes[weekNumber];
             }
-            DOMElements.weeklyTheme.innerHTML = `<strong class="font-bold">This Week’s Theme:</strong> ${themeText}`;
+            DOMElements.weeklyTheme.innerHTML = `<strong class="font-bold">This Week's Theme:</strong> ${themeText}`;
+            DOMElements.weeklyTheme.parentElement.style.display = 'inline-block';
         };
 
         const updateProgress = () => {
