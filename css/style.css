@@ -373,58 +373,121 @@ main > section + section, main > section + nav {
   margin-top: 6rem;
 }
 
-/* ==================== HERO SECTION - ALWAYS VISIBLE ==================== */
-.hero-anim-item {
+/* ==================== OPTIMIZED HERO SECTION ==================== */
+
+/* Hero Container - Compact & Natural Height */
+section[aria-labelledby="hero-title"] {
+  padding-top: 2rem !important; 
+  padding-bottom: 2rem !important;
+  min-height: auto !important;
   opacity: 1 !important;
-  transform: translateY(0) !important;
   visibility: visible !important;
 }
 
-.hero-anim-item.is-visible {
-  opacity: 1 !important;
-  transform: translateY(0) !important;
-}
-
-#hero-title {
-  opacity: 1 !important;
-  transform: translateY(0) !important;
-  visibility: visible !important;
-}
-
-#hero-tagline {
-  opacity: 1 !important;
-  transform: translateY(0) !important;
-  visibility: visible !important;
-}
-
-.font-newsreader {
-  opacity: 1 !important;
-  transform: translateY(0) !important;
-  visibility: visible !important;
-}
-
+/* Hero Image - Perfectly Sized */
 .hero-image {
+  max-width: 350px !important;
+  width: 100% !important;
+  height: auto !important;
+  margin: 0 auto 1.5rem auto !important;
   opacity: 1 !important;
   visibility: visible !important;
   display: block !important;
-  animation: fadeInUp 1s ease-out;
 }
 
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+/* Author Name - Compact & Elegant */
+section[aria-labelledby="hero-title"] .font-newsreader {
+  font-size: 2rem !important;
+  margin-top: 0.75rem !important;
+  margin-bottom: 0.75rem !important;
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+  visibility: visible !important;
 }
 
-/* Ensure all hero buttons and links are visible and clickable */
+/* Tagline - Balanced Size */
+section[aria-labelledby="hero-title"] #hero-tagline {
+  font-size: 1.25rem !important;
+  margin-top: 0.75rem !important;
+  margin-bottom: 0.5rem !important;
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+  visibility: visible !important;
+}
+
+/* Button Container - Tighter Spacing */
+section[aria-labelledby="hero-title"] .hero-anim-item {
+  margin-top: 1.5rem !important;
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+  visibility: visible !important;
+}
+
+section[aria-labelledby="hero-title"] .hero-anim-item.is-visible {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+}
+
+/* Primary CTA Button - Refined Size */
+#hero-subscribe-btn {
+  font-size: 1rem !important;
+  padding: 0.75rem 2rem !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  pointer-events: auto !important;
+  display: inline-flex !important;
+}
+
+/* Secondary Links - Compact */
+section[aria-labelledby="hero-title"] .link-secondary {
+  font-size: 0.9rem !important;
+  padding: 0.25rem 0.5rem !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  display: inline-block !important;
+  pointer-events: auto !important;
+}
+
+/* Date Display - Smaller */
+#challenge-dates {
+  font-size: 1.25rem !important;
+  margin-top: 1.5rem !important;
+}
+
+/* Divider Line - Compact */
+section[aria-labelledby="hero-title"] .w-96 {
+  max-width: 16rem !important;
+  margin-top: 1rem !important;
+}
+
+/* Weekly Theme Banner - Sleek */
+#weekly-theme-container {
+  margin-top: 1.5rem !important;
+  padding: 0.75rem 1.5rem !important;
+}
+
+#weekly-theme {
+  font-size: 1.125rem !important;
+}
+
+/* Practice Text Section - Balanced */
+section[aria-labelledby="hero-title"] .mt-12 {
+  margin-top: 2rem !important;
+}
+
+section[aria-labelledby="hero-title"] .font-dm-serif-text {
+  font-size: 2rem !important;
+  line-height: 1.2 !important;
+}
+
+section[aria-labelledby="hero-title"] .text-lg {
+  font-size: 1rem !important;
+  line-height: 1.6 !important;
+}
+
+/* Ensure All Interactive Elements Work */
 .hero-anim-item .btn,
 .hero-anim-item button,
-#hero-subscribe-btn,
 #newsletter-secondary-btn,
 #show-welcome-btn {
   opacity: 1 !important;
@@ -433,26 +496,48 @@ main > section + section, main > section + nav {
   display: inline-flex !important;
 }
 
-.link-secondary {
+#hero-title {
   opacity: 1 !important;
-  visibility: visible !important;
-  display: inline-block !important;
-  pointer-events: auto !important;
-}
-
-/* Ensure the hero container is visible */
-section[aria-labelledby="hero-title"] {
-  opacity: 1 !important;
+  transform: translateY(0) !important;
   visibility: visible !important;
 }
 
-/* ==================== SPRINT DETAILS & OTHER SECTIONS ==================== */
+/* Mobile Responsive Hero */
+@media (max-width: 768px) {
+  .hero-image {
+    max-width: 280px !important;
+  }
+  
+  section[aria-labelledby="hero-title"] {
+    padding-top: 1.5rem !important;
+    padding-bottom: 1.5rem !important;
+  }
+  
+  section[aria-labelledby="hero-title"] .font-newsreader {
+    font-size: 1.5rem !important;
+  }
+  
+  section[aria-labelledby="hero-title"] #hero-tagline {
+    font-size: 1rem !important;
+  }
+  
+  section[aria-labelledby="hero-title"] .font-dm-serif-text {
+    font-size: 1.5rem !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-image {
+    max-width: 220px !important;
+  }
+}
+
+/* ==================== OTHER SECTIONS ==================== */
 #sprint-details {
   opacity: 1;
   transform: translateY(0);
 }
 
-/* Ensure modals work properly */
 .fixed.hidden {
   display: none !important;
 }
@@ -461,17 +546,14 @@ section[aria-labelledby="hero-title"] {
   display: flex !important;
 }
 
-/* Loading states */
 #skeleton-loaders.hidden {
   display: none;
 }
 
-/* Ensure cards show properly */
 main .card {
   opacity: 1 !important;
 }
 
-/* Share button styling */
 .share-btn {
   cursor: pointer;
   padding: 0.25rem 0.5rem;
@@ -481,48 +563,4 @@ main .card {
 
 .share-btn:hover {
   background: rgba(255, 255, 255, 0.1);
-}
-/* Add this to the bottom of your style.css file */
-
-/* ==================== HERO IMAGE - MUCH SMALLER SIZE ==================== */
-
-.hero-image {
-  max-width: 400px !important; /* Much smaller! */
-  width: 100% !important;
-  height: auto !important;
-  margin: 0 auto 2rem auto !important; /* Added bottom margin */
-}
-
-/* Responsive sizes for different screens */
-@media (max-width: 768px) {
-  .hero-image {
-    max-width: 300px !important; /* Even smaller on tablet */
-  }
-}
-
-@media (max-width: 480px) {
-  .hero-image {
-    max-width: 250px !important; /* Smallest on mobile */
-  }
-}
-
-/* Reduce spacing around hero section to make it more compact */
-section[aria-labelledby="hero-title"] {
-  padding-top: 2rem !important; 
-  padding-bottom: 2rem !important;
-  min-height: auto !important; /* Remove the min-height forcing it to be 80vh */
-}
-
-/* Tighten up spacing between elements */
-section[aria-labelledby="hero-title"] .font-newsreader {
-  margin-top: 1rem !important;
-  margin-bottom: 1rem !important;
-}
-
-section[aria-labelledby="hero-title"] #hero-tagline {
-  margin-top: 1rem !important;
-}
-
-section[aria-labelledby="hero-title"] .hero-anim-item {
-  margin-top: 2rem !important;
 }
