@@ -451,3 +451,54 @@ main > section + section, main > section + nav {
 .share-btn:hover {
   background: rgba(255, 255, 255, 0.1);
 }
+/* ==================== HERO SECTION FIX ==================== */
+
+/* Force hero elements to be visible immediately */
+.hero-anim-item {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+  visibility: visible !important;
+}
+
+#hero-tagline {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+  visibility: visible !important;
+}
+
+.font-newsreader {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+  visibility: visible !important;
+}
+
+.hero-image {
+  opacity: 1 !important;
+  visibility: visible !important;
+  display: block !important;
+}
+
+/* Make sure buttons and links are visible and clickable */
+.hero-anim-item .btn,
+.hero-anim-item button,
+#hero-subscribe-btn,
+#newsletter-secondary-btn,
+#show-welcome-btn {
+  opacity: 1 !important;
+  visibility: visible !important;
+  pointer-events: auto !important;
+  display: inline-flex !important;
+}
+
+.link-secondary {
+  opacity: 1 !important;
+  visibility: visible !important;
+  display: inline-block !important;
+  pointer-events: auto !important;
+}
+
+/* Ensure the container is visible */
+section[aria-labelledby="hero-title"] {
+  opacity: 1 !important;
+  visibility: visible !important;
+}
