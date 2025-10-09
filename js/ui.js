@@ -6,17 +6,21 @@ import { escapeHtml, toJsDate, getCurrentDay } from './utils.js';
 import { weeklyThemes, ENTRIES_PER_PAGE, START_DATE, TOTAL_DAYS } from './config.js';
 
 // Cache DOM elements for performance
-const DOMElements = Object.fromEntries(
-    [
-        'header-day', 'header-entries', 'today-count', 'streak-count', 'header-streak',
-        'free-count', 'paid-count', 'challenge-dates', 'search-input',
-        'sort-select', 'skeleton-loaders', 'today-section', 'today-entries', 'previous-section', 'previous-entries',
-        'load-more-container', 'empty-state', 'empty-state-message', 'subscribe-btn', 'hero-subscribe-btn',
-        'subscribe-modal', 'close-subscribe', 'sms-modal', 'close-sms-modal', 'toast',
-        'content-feed', 'day-dots-container', 'feed-announcer',
-        'welcome-modal', 'show-welcome-btn', 'close-welcome-modal', 'weekly-theme', 'newsletter-secondary-btn'
-    ].map(id => [id.replace(/-(\w)/g, (m, g) => g.toUpperCase()), document.getElementById(id)])
-);
+let DOMElements;
+
+export function cacheDOMElements() {
+    DOMElements = Object.fromEntries(
+        [
+            'header-day', 'header-entries', 'today-count', 'streak-count', 'header-streak',
+            'free-count', 'paid-count', 'challenge-dates', 'search-input',
+            'sort-select', 'skeleton-loaders', 'today-section', 'today-entries', 'previous-section', 'previous-entries',
+            'load-more-container', 'empty-state', 'empty-state-message', 'subscribe-btn', 'hero-subscribe-btn',
+            'subscribe-modal', 'close-subscribe', 'sms-modal', 'close-sms-modal', 'toast',
+            'content-feed', 'day-dots-container', 'feed-announcer',
+            'welcome-modal', 'show-welcome-btn', 'close-welcome-modal', 'weekly-theme', 'newsletter-secondary-btn'
+        ].map(id => [id.replace(/-(\w)/g, (m, g) => g.toUpperCase()), document.getElementById(id)])
+    );
+}
 
 let scrollObserver;
 
@@ -172,3 +176,4 @@ export function updateChallengeDates() {
     const endDate = new Date(START_DATE.getTime() + ((TOTAL_DAYS - 1) * MS_PER_DAY));
     DOMElements.challengeDates.innerHTML = `${START_DATE.toLocaleDateString('en-US', { month: 'long', day: 'numeric' })} &mdash; ${endDate.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}`;
 }
+
