@@ -1,4 +1,4 @@
-// js/firebase-config.js
+
 // This file contains the shared Firebase configuration for the app.
 
 export const firebaseConfig = {
