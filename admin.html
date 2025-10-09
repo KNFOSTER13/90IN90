@@ -1,119 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Panel | Kimberly's Creative Sprint</title>
-    <meta name="robots" content="noindex, nofollow">
-    <link rel="stylesheet" href="css/style.css">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Add styles for preview cards and status tags -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Admin Panel | Kimberly's Creative Sprint</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="stylesheet" href="css/style.css">
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-bg-dark text-text-primary">
 
-    <main class="max-w-4xl mx-auto px-4 py-8">
-        <div id="auth-gate">
-            <div class="text-center p-8">
-                <h1 class="text-3xl brand-font mb-4">Admin Access</h1>
-                <p class="text-muted mb-6">Please sign in to manage sprint entries.</p>
-                <button id="admin-signin-btn" class="btn btn-luminous">Sign In with Google</button>
-            </div>
+  <main class="max-w-4xl mx-auto px-4 py-8">
+    <!-- AUTH GATE: shown when signed out or not authorized -->
+    <div id="auth-gate" class="text-center p-8">
+      <h1 class="text-3xl brand-font mb-4">Admin Access</h1>
+
+      <!-- status text (updated by JS) -->
+      <p id="status-text" class="text-muted mb-6">Please sign in to manage sprint entries.</p>
+
+      <!-- Sign in / out buttons -->
+      <div class="flex justify-center gap-4">
+        <button id="signin-btn" class="btn btn-luminous">Sign In with Google</button>
+        <button id="signout-btn" class="btn btn-outline hidden">Sign Out</button>
+      </div>
+    </div>
+
+    <!-- ADMIN PANEL: hidden until authorized -->
+    <div id="admin-panel" class="hidden mt-8">
+
+      <section class="mb-8">
+        <h2 class="text-2xl mb-4">Create a sprint entry</h2>
+
+        <form id="new-entry-form" class="space-y-3">
+          <input id="entry-title" class="w-full p-3 rounded" placeholder="Title" required />
+          <textarea id="entry-body" class="w-full p-3 rounded" rows="6" placeholder="Body" required></textarea>
+
+          <div class="flex gap-3">
+            <button type="submit" class="btn btn-primary">Create entry</button>
+            <button type="button" id="cancel-edit" class="btn btn-ghost hidden">Cancel edit</button>
+          </div>
+        </form>
+      </section>
+
+      <section>
+        <h3 class="text-xl mb-3">Existing entries</h3>
+        <div id="entries-list" class="space-y-4">
+          <!-- Entries are rendered here by JS -->
         </div>
+      </section>
 
-        <div id="admin-content" class="hidden">
-             <!-- Admin content from your file -->
-        </div>
-    </main>
-    
-    <div id="toast" class="toast" role="alert" aria-live="polite"></div>
+    </div>
+  </main>
 
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-        import { getAuth, onAuthStateChanged, signOut, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-        import { getFirestore, collection, onSnapshot, query, doc, deleteDoc, updateDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
-        import { getFunctions, httpsCallable } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-functions.js";
-        import { firebaseConfig } from 'js/firebase-config.js';
+  <!-- toast area -->
+  <div id="toast" class="toast fixed bottom-8 right-8"></div>
 
-        // --- INITIALIZATION ---
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
-        const db = getFirestore(app);
-        const functions = getFunctions(app);
-        const provider = new GoogleAuthProvider();
-
-        const createEntry = httpsCallable(functions, 'createEntry');
-        
-        let allEntries = [];
-        let editingEntryId = null;
-
-        // --- DOM Elements, debounce, escapeHtml ---
-        // (Same as your existing admin.html)
-
-        // --- SECURE AUTHENTICATION CHECK ---
-        onAuthStateChanged(auth, user => {
-            if (user) {
-                user.getIdTokenResult().then(idTokenResult => {
-                    // Check for the 'admin' custom claim
-                    if (idTokenResult.claims.admin) {
-                        DOMElements.authGate.classList.add('hidden');
-                        DOMElements.adminContent.classList.remove('hidden');
-                        setupFirestoreListener();
-                    } else {
-                        // User is signed in but not an admin
-                        DOMElements.authGate.innerHTML = `<div class="text-center p-8"><h1 class="text-3xl brand-font mb-4">Access Denied</h1><p class="text-muted">You do not have permission to view this page.</p></div>`;
-                        DOMElements.authGate.classList.remove('hidden');
-                        DOMElements.adminContent.classList.add('hidden');
-                    }
-                });
-            } else {
-                // User is not signed in
-                DOMElements.authGate.classList.remove('hidden');
-                DOMElements.adminContent.classList.add('hidden');
-            }
-        });
-
-        // --- Sign In/Out ---
-        DOMElements.adminSigninBtn.addEventListener('click', () => signInWithPopup(auth, provider));
-        DOMElements.adminSignoutBtn.addEventListener('click', () => signOut(auth));
-
-        // --- FORM SUBMISSION (Now using Cloud Function) ---
-        DOMElements.entryForm.addEventListener('submit', async (e) => {
-             e.preventDefault();
-             DOMElements.publishBtn.disabled = true;
-
-             const entryData = {
-                title: document.getElementById('entry-title').value.trim(),
-                description: document.getElementById('entry-description').value.trim(),
-                link: document.getElementById('entry-link').value.trim(),
-                imageUrl: document.getElementById('entry-image').value.trim(),
-                contentType: document.getElementById('entry-type').value,
-                access: document.getElementById('entry-access').value,
-                status: document.getElementById('schedule-toggle').checked ? 'scheduled' : 'published',
-                scheduledFor: document.getElementById('schedule-toggle').checked ? new Date(`${document.getElementById('schedule-date').value}T${document.getElementById('schedule-time').value}`).toISOString() : null
-             };
-
-             try {
-                if (editingEntryId) {
-                    // NOTE: Update logic would also move to a secure Cloud Function
-                    await updateDoc(doc(db, dropsCollectionPath, editingEntryId), entryData);
-                    showToast('Entry updated successfully!');
-                } else {
-                    await createEntry(entryData);
-                    showToast('Entry added successfully!');
-                }
-                resetForm();
-             } catch (error) {
-                console.error("Error saving entry:", error);
-                showToast(error.message || "Could not save entry.", "error");
-             } finally {
-                DOMElements.publishBtn.disabled = false;
-             }
-        });
-        
-        // --- Other functions (setupFirestoreListener, renderAllEntries, etc.) ---
-        // (These remain largely the same as in your existing admin.html)
-        // Make sure to implement showToast and resetForm functions.
-
-    </script>
+  <!-- Load the admin auth script (module) -->
+  <script type="module" src="./js/admin-auth.js"></script>
 </body>
 </html>
