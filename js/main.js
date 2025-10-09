@@ -2,8 +2,9 @@
 // Main application entry point.
 
 import { initializeFirebase } from './firebase.js';
-import { initializeEventListeners } from './events.js';
+import { initializeEventListeners, applyFiltersAndSort } from './events.js';
 import { 
+    cacheDOMElements,
     initializeScrollObserver,
     updateWeeklyTheme, 
     updateProgress, 
@@ -13,6 +14,9 @@ import {
 
 
 document.addEventListener('DOMContentLoaded', () => {
+    // Ensure all DOM elements are available before doing anything else
+    cacheDOMElements();
+
     // Initialize UI components
     initializeScrollObserver();
     updateChallengeDates();
@@ -25,8 +29,9 @@ document.addEventListener('DOMContentLoaded', () => {
     setInterval(updateWeeklyTheme, 60000 * 60);
 
     // Initialize Firebase
-    initializeFirebase();
+    initializeFirebase(applyFiltersAndSort);
 
     // Initialize event listeners
     initializeEventListeners();
 });
+
