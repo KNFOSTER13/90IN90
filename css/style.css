@@ -10,7 +10,7 @@
   --accent-end:   #f0d4e8;
   --cta: #e5b8ff;
   --cta-hover: #d9a6ff;
-  --text-primary: #F4E7C8;
+  --text-primary: #F8E9D4; /* Updated text color */
   --text-secondary: #E8D5F2;
   --text-muted: #B8A1C8;
   --tag-free: #a6f5c3;
@@ -30,7 +30,7 @@
 html { scroll-behavior: smooth; }
 body {
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-  background-color: #341047;
+  background: linear-gradient(to bottom, #341047, #3B0E4C); /* Gradient background */
   min-height: 100vh;
   color: var(--text-primary);
   line-height: 1.75;
@@ -96,7 +96,8 @@ p { max-width: 65ch; }
   background-color: rgba(27, 6, 40, 0.85);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  border-bottom: 1px solid rgba(218, 182, 255, 0.15);
+  border-bottom: 1px solid rgba(218, 182, 255, 0.1); /* Softer border */
+  box-shadow: 0 2px 20px rgba(218, 182, 255, 0.08); /* Subtle glow */
 }
 .card {
   background: linear-gradient(
@@ -214,7 +215,7 @@ p { max-width: 65ch; }
   background: linear-gradient(135deg, #fffade, #e8d5b5, #cb98e1);
   color: #330948;
   border-radius: 9999px; /* More curved, pill shape */
-  box-shadow: 0 4px 20px rgba(203, 152, 225, 0.2), 0 0 25px rgba(255, 250, 222, 0.3); /* Softer glow */
+  box-shadow: 0 4px 15px rgba(203, 152, 225, 0.15), 0 0 20px rgba(255, 250, 222, 0.2), inset 0 1px 2px rgba(248, 233, 212, 0.5); /* Refined glow with inner halo */
   font-weight: 700;
   border: none;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -222,7 +223,7 @@ p { max-width: 65ch; }
 
 .btn-luminous:hover:not(:disabled) {
   transform: scale(1.05) translateY(-2px);
-  box-shadow: 0 8px 30px rgba(203, 152, 225, 0.3), 0 0 35px rgba(255, 250, 222, 0.5); /* Enhanced hover glow */
+  box-shadow: 0 8px 25px rgba(203, 152, 225, 0.2), 0 0 30px rgba(255, 250, 222, 0.35), inset 0 1px 2px rgba(248, 233, 212, 0.5); /* Enhanced hover glow */
 }
 
 .link-secondary {
@@ -567,3 +568,4 @@ main .card {
 .share-btn:hover {
   background: rgba(255, 255, 255, 0.1);
 }
+
