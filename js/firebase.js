@@ -6,12 +6,13 @@ import { getAuth, signInAnonymously, onAuthStateChanged } from "https://www.gsta
 import { getFirestore, collection, onSnapshot, query, where, doc, updateDoc, increment } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 import { firebaseConfig } from './config.js';
 import { state } from './state.js';
-import { applyFiltersAndSort } from './events.js';
 
 let db;
 let auth;
+let dataCallback; 
 
-export function initializeFirebase() {
+export function initializeFirebase(onDataUpdate) {
+    dataCallback = onDataUpdate; 
     const app = initializeApp(firebaseConfig);
     auth = getAuth(app);
     db = getFirestore(app);
@@ -33,7 +34,9 @@ function setupFirestoreListener() {
     
     onSnapshot(q, (snapshot) => {
         state.allEntries = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-        applyFiltersAndSort();
+        if (dataCallback) {
+            dataCallback(); 
+        }
     });
 }
 
@@ -41,3 +44,4 @@ export async function heartPost(postId) {
     const dropsCollectionPath = `artifacts/${firebaseConfig.projectId}/public/data/drops`;
     await updateDoc(doc(db, dropsCollectionPath, postId), { hearts: increment(1) });
 }
+
