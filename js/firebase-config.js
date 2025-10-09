@@ -1,17 +1,29 @@
 // js/firebase-config.js
-// This file contains the shared Firebase configuration for the app.
+// Shared Firebase configuration for the app
 
-// In a local environment, you can hardcode these.
-// For production on GitHub, these values should be replaced by a CI/CD pipeline (like GitHub Actions)
-// using secrets. This placeholder setup is for demonstration.
-export const firebaseConfig = {
-    apiKey: "%FIREBASE_API_KEY%",
-    authDomain: "%FIREBASE_AUTH_DOMAIN%",
+import { initializeApp } from 'https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js';
+import { getAuth } from 'https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js';
+import { getFirestore } from 'https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js';
+
+// Firebase configuration
+const firebaseConfig = {
+    apiKey: "AIzaSyDTd4lvs1lzjKeGu7Ee91lM30-8v88h-ng",
+    authDomain: "productivity-tracker-knf13.firebaseapp.com",
     projectId: "productivity-tracker-knf13",
-    storageBucket: "%FIREBASE_STORAGE_BUCKET%",
-    messagingSenderId: "%FIREBASE_MESSAGING_SENDER_ID%",
-    appId: "%FIREBASE_APP_ID%"
+    storageBucket: "productivity-tracker-knf13.appspot.com",
+    messagingSenderId: "762035393571",
+    appId: "1:762035393571:web:7d474a6a57cc031b860d96"
 };
 
-// This is NOT a secret and can be public.
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+
+// Initialize services
+export const auth = getAuth(app);
+export const db = getFirestore(app);
+
+// Export config for other modules that need it
+export { firebaseConfig };
+
+// Admin email (public, not a secret)
 export const ADMIN_EMAIL = "submissions@forharriet.com";
