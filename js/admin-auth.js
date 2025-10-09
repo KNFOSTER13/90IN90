@@ -1,11 +1,10 @@
-// js/admin-auth.js - admin create / edit / delete with Firebase
 import { auth, db } from './firebase-config.js';
 import {
   GoogleAuthProvider,
   signInWithPopup,
   onAuthStateChanged,
   signOut as firebaseSignOut
-} from 'https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js';
+} from 'https://www.gstatic.com/firebasejs/10.7.0/firebase-auth.js';
 import {
   collection,
   addDoc,
@@ -17,34 +16,31 @@ import {
   deleteDoc,
   updateDoc,
   getDoc
-} from 'https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js';
+} from 'https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore.js';
 
 const provider = new GoogleAuthProvider();
 provider.setCustomParameters({ prompt: 'select_account' });
 
-// Use the ADMIN_EMAIL from environment or fallback
 const ADMIN_EMAIL = 'submissions@forharriet.com'.toLowerCase();
 
-// DOM refs
+// DOM refs with null checks
 const signInBtn = document.getElementById('signin-btn');
 const signOutBtn = document.getElementById('signout-btn');
 const statusText = document.getElementById('status-text');
 const adminPanel = document.getElementById('admin-panel');
-const authGate = document.getElementById('auth-gate');
 const newEntryForm = document.getElementById('new-entry-form');
 const entriesList = document.getElementById('entries-list');
 const cancelEditBtn = document.getElementById('cancel-edit');
 
 let editingId = null;
+let currentCollectionPath = 'entries'; // Start with simple path
 
 function show(el) { 
-  if (!el) return; 
-  el.classList.remove('hidden'); 
+  if (el) el.classList.remove('hidden'); 
 }
 
 function hide(el) { 
-  if (!el) return; 
-  el.classList.add('hidden'); 
+  if (el) el.classList.add('hidden'); 
 }
 
 function showToast(message, type = 'info') {
@@ -58,136 +54,156 @@ function showToast(message, type = 'info') {
   }
 }
 
-signInBtn?.addEventListener('click', async () => {
-  try { 
-    await signInWithPopup(auth, provider);
-    showToast('Sign in successful', 'success');
-  }
-  catch (e) { 
-    console.error('Sign-in failed', e);
-    showToast('Sign in failed - check console', 'error');
-  }
-});
+if (signInBtn) {
+  signInBtn.addEventListener('click', async () => {
+    try { 
+      const result = await signInWithPopup(auth, provider);
+      console.log('Sign in successful:', result.user.email);
+      showToast('Sign in successful', 'success');
+    }
+    catch (e) { 
+      console.error('Sign-in failed', e);
+      showToast('Sign in failed: ' + e.message, 'error');
+    }
+  });
+}
 
-signOutBtn?.addEventListener('click', async () => {
-  await firebaseSignOut(auth);
-  showToast('Signed out', 'info');
-});
+if (signOutBtn) {
+  signOutBtn.addEventListener('click', async () => {
+    await firebaseSignOut(auth);
+    showToast('Signed out', 'info');
+  });
+}
 
 onAuthStateChanged(auth, async (user) => {
   console.log('Auth state changed:', user?.email);
   
   if (!user) {
-    statusText.textContent = 'Please sign in to manage sprint entries.';
+    if (statusText) statusText.textContent = 'Please sign in to manage sprint entries.';
     show(signInBtn);
     hide(signOutBtn);
     hide(adminPanel);
-    entriesList.innerHTML = '';
+    if (entriesList) entriesList.innerHTML = '';
     return;
   }
 
-  // Get the user's email
   const email = (user.email || '').toLowerCase();
 
   if (email === ADMIN_EMAIL) {
-    statusText.textContent = `Signed in as ${email} (admin)`;
+    if (statusText) statusText.textContent = `Signed in as ${email} (admin)`;
     hide(signInBtn);
     show(signOutBtn);
     show(adminPanel);
     await loadEntries();
   } else {
-    statusText.textContent = `Signed in as ${email} - not authorized to manage entries.`;
+    if (statusText) statusText.textContent = `Signed in as ${email} - not authorized.`;
     hide(signInBtn);
     show(signOutBtn);
     hide(adminPanel);
-    entriesList.innerHTML = '';
+    if (entriesList) entriesList.innerHTML = '';
   }
 });
 
-newEntryForm?.addEventListener('submit', async (e) => {
-  e.preventDefault();
-  
-  const titleInput = document.getElementById('entry-title');
-  const bodyInput = document.getElementById('entry-body');
-  
-  const title = titleInput.value.trim();
-  const body = bodyInput.value.trim();
-  
-  if (!title || !body) {
-    showToast('Please fill in both title and body', 'warning');
-    return;
-  }
-
-  try {
-    // Use the correct collection path for the drops
-    const dropsCollectionPath = `artifacts/productivity-tracker-knf13/public/data/drops`;
+if (newEntryForm) {
+  newEntryForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
     
-    if (editingId) {
-      await updateDoc(doc(db, dropsCollectionPath, editingId), { 
-        title, 
-        description: body,
-        updatedAt: serverTimestamp()
-      });
-      showToast('Entry updated successfully', 'success');
-      editingId = null;
-      if (cancelEditBtn) hide(cancelEditBtn);
-    } else {
-      // Create new entry with the proper structure
-      await addDoc(collection(db, dropsCollectionPath), {
+    const titleInput = document.getElementById('entry-title');
+    const bodyInput = document.getElementById('entry-body');
+    
+    if (!titleInput || !bodyInput) return;
+    
+    const title = titleInput.value.trim();
+    const body = bodyInput.value.trim();
+    
+    if (!title || !body) {
+      showToast('Please fill in both title and body', 'warning');
+      return;
+    }
+
+    try {
+      const entryData = {
         title,
         description: body,
-        contentType: 'Essay', // Default type
-        access: 'Free', // Default access
+        body, // Include both for compatibility
+        contentType: 'Essay',
+        access: 'Free',
         status: 'published',
         hearts: 0,
         day: getCurrentDay(),
-        link: '#', // You may want to add a link field to your form
+        link: '#',
         timestamp: serverTimestamp(),
         createdAt: serverTimestamp()
-      });
-      showToast('Entry created successfully', 'success');
+      };
+      
+      if (editingId) {
+        await updateDoc(doc(db, currentCollectionPath, editingId), {
+          ...entryData,
+          updatedAt: serverTimestamp()
+        });
+        showToast('Entry updated successfully', 'success');
+        editingId = null;
+        hide(cancelEditBtn);
+      } else {
+        await addDoc(collection(db, currentCollectionPath), entryData);
+        showToast('Entry created successfully', 'success');
+      }
+      
+      newEntryForm.reset();
+      await loadEntries();
+    } catch (err) {
+      console.error('Save error', err);
+      showToast('Error: ' + err.message, 'error');
     }
-    
-    newEntryForm.reset();
-    await loadEntries();
-  } catch (err) {
-    console.error('Save error', err);
-    showToast('Could not save entry. See console.', 'error');
-  }
-});
+  });
+}
 
 if (cancelEditBtn) {
   cancelEditBtn.addEventListener('click', (e) => {
     e.preventDefault();
     editingId = null;
-    newEntryForm.reset();
+    if (newEntryForm) newEntryForm.reset();
     hide(cancelEditBtn);
   });
 }
 
 async function loadEntries() {
+  if (!entriesList) return;
+  
   entriesList.innerHTML = '<div class="loading-spinner mx-auto"></div>';
   
   try {
-    const dropsCollectionPath = `artifacts/productivity-tracker-knf13/public/data/drops`;
-    const q = query(collection(db, dropsCollectionPath), orderBy('timestamp', 'desc'));
-    const snap = await getDocs(q);
+    // Try simple path first
+    let q = query(collection(db, 'entries'), orderBy('createdAt', 'desc'));
+    let snap = await getDocs(q);
+    
+    if (snap.empty) {
+      // Try artifacts path
+      currentCollectionPath = `artifacts/productivity-tracker-knf13/public/data/drops`;
+      q = query(collection(db, currentCollectionPath), orderBy('timestamp', 'desc'));
+      snap = await getDocs(q);
+    } else {
+      currentCollectionPath = 'entries';
+    }
     
     if (snap.empty) { 
-      entriesList.innerHTML = '<p class="text-muted">No entries yet.</p>'; 
+      entriesList.innerHTML = '<p class="text-muted">No entries yet. Create your first entry above!</p>'; 
       return; 
     }
     
-    const html = [];
+    const entries = [];
     snap.forEach(docSnap => {
       const d = docSnap.data();
       const id = docSnap.id;
-      const created = d.timestamp ? new Date(d.timestamp.seconds * 1000).toLocaleString() : '—';
+      const timestamp = d.timestamp || d.createdAt;
+      const created = timestamp ? 
+        (timestamp.toDate ? timestamp.toDate() : new Date(timestamp.seconds * 1000)).toLocaleString() 
+        : 'Unknown date';
       
-      html.push(`
+      entries.push(`
         <div class="card p-4">
           <h3 class="text-lg font-semibold">${escapeHtml(d.title)}</h3>
-          <div class="mt-2 text-text-secondary">${escapeHtml(d.description)}</div>
+          <div class="mt-2 text-text-secondary">${escapeHtml(d.description || d.body || '')}</div>
           <div class="mt-2 flex gap-4 text-sm text-muted">
             <span>Type: ${d.contentType || 'N/A'}</span>
             <span>Access: ${d.access || 'N/A'}</span>
@@ -202,49 +218,43 @@ async function loadEntries() {
         </div>
       `);
     });
-    entriesList.innerHTML = html.join('');
+    
+    entriesList.innerHTML = entries.join('');
+    console.log(`Loaded ${entries.length} entries from ${currentCollectionPath}`);
+    
   } catch (err) {
-    console.error('Error loading entries', err);
-    entriesList.innerHTML = '<p class="text-error">Error loading entries (see console)</p>';
+    console.error('Error loading entries:', err);
+    entriesList.innerHTML = `<p class="text-error">Error: ${err.message}</p>`;
   }
 }
 
-// Calculate current day based on sprint start date
 function getCurrentDay() {
   const START_DATE = new Date('2025-10-13T00:00:00');
   const now = new Date();
   const MS_PER_DAY = 1000 * 60 * 60 * 24;
   
-  if (now < START_DATE) return 0;
+  if (now < START_DATE) return 1;
   
-  const startOfDay = d => { 
-    const date = new Date(d); 
-    date.setHours(0, 0, 0, 0); 
-    return date; 
-  };
-  
-  return Math.floor((startOfDay(now) - startOfDay(START_DATE)) / MS_PER_DAY) + 1;
+  const dayNum = Math.floor((now - START_DATE) / MS_PER_DAY) + 1;
+  return Math.max(1, Math.min(90, dayNum));
 }
 
 window.deleteEntry = async function deleteEntry(id) {
   if (!confirm('Delete this entry? This cannot be undone.')) return;
   
   try {
-    const dropsCollectionPath = `artifacts/productivity-tracker-knf13/public/data/drops`;
-    await deleteDoc(doc(db, dropsCollectionPath, id));
+    await deleteDoc(doc(db, currentCollectionPath, id));
     showToast('Entry deleted', 'success');
     await loadEntries();
   } catch (err) {
-    console.error('Delete failed', err);
-    showToast('Delete failed - check console', 'error');
+    console.error('Delete failed:', err);
+    showToast('Delete failed: ' + err.message, 'error');
   }
 };
 
 window.editEntry = async function editEntry(id) {
   try {
-    const dropsCollectionPath = `artifacts/productivity-tracker-knf13/public/data/drops`;
-    const dref = doc(db, dropsCollectionPath, id);
-    const docSnap = await getDoc(dref);
+    const docSnap = await getDoc(doc(db, currentCollectionPath, id));
     
     if (!docSnap.exists()) {
       showToast('Entry no longer exists', 'warning');
@@ -252,21 +262,24 @@ window.editEntry = async function editEntry(id) {
     }
     
     const data = docSnap.data();
-    document.getElementById('entry-title').value = data.title || '';
-    document.getElementById('entry-body').value = data.description || data.body || '';
+    const titleInput = document.getElementById('entry-title');
+    const bodyInput = document.getElementById('entry-body');
+    
+    if (titleInput) titleInput.value = data.title || '';
+    if (bodyInput) bodyInput.value = data.description || data.body || '';
     
     editingId = id;
-    if (cancelEditBtn) show(cancelEditBtn);
+    show(cancelEditBtn);
     
     window.scrollTo({ top: 0, behavior: 'smooth' });
   } catch (err) {
-    console.error('Edit fetch failed', err);
-    showToast('Could not load entry to edit', 'error');
+    console.error('Edit fetch failed:', err);
+    showToast('Could not load entry: ' + err.message, 'error');
   }
 };
 
-function escapeHtml(s = '') {
+function escapeHtml(str) {
   const div = document.createElement('div');
-  div.textContent = s;
+  div.textContent = str || '';
   return div.innerHTML;
 }

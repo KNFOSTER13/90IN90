@@ -1,11 +1,8 @@
-// js/firebase-config.js
-// Shared Firebase configuration for the app
+import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js';
+import { getAuth } from 'https://www.gstatic.com/firebasejs/10.7.0/firebase-auth.js';
+import { getFirestore } from 'https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore.js';
 
-import { initializeApp } from 'https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js';
-import { getAuth } from 'https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js';
-import { getFirestore } from 'https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js';
-
-// Firebase configuration
+// Firebase configuration - Using your actual values
 const firebaseConfig = {
     apiKey: "AIzaSyDTd4lvs1lzjKeGu7Ee91lM30-8v88h-ng",
     authDomain: "productivity-tracker-knf13.firebaseapp.com",
@@ -22,8 +19,8 @@ const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
 export const db = getFirestore(app);
 
-// Export config for other modules that need it
+// Export config for other modules
 export { firebaseConfig };
 
-// Admin email (public, not a secret)
+// Admin email
 export const ADMIN_EMAIL = "submissions@forharriet.com";
