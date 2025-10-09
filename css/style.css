@@ -384,3 +384,70 @@ p { max-width: 65ch; }
 main > section + section, main > section + nav {
   margin-top: 6rem;
 }
+/* Quick Fixes */
+
+/* Ensure sprint details are visible */
+#sprint-details {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Day dots styling */
+.day-dot {
+  background-color: var(--text-muted);
+  opacity: 0.3;
+}
+
+.day-dot.current {
+  background-color: var(--cta) !important;
+  opacity: 1 !important;
+  transform: scale(1.5);
+  box-shadow: 0 0 8px var(--cta);
+}
+
+/* Hero animations - ensure they show */
+.hero-image {
+  animation: fadeInUp 1s ease-out;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Ensure modals work properly */
+.fixed.hidden {
+  display: none !important;
+}
+
+.fixed:not(.hidden) {
+  display: flex !important;
+}
+
+/* Loading states */
+#skeleton-loaders.hidden {
+  display: none;
+}
+
+/* Ensure cards are visible */
+.card {
+  opacity: 1 !important;
+}
+
+/* Fix share button */
+.share-btn {
+  cursor: pointer;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+  transition: all 0.2s;
+}
+
+.share-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
