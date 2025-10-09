@@ -1,6 +1,4 @@
-// js/ui.js
-// Handles all DOM manipulation and UI updates.
-
+// js/ui.js - Fixed version
 import { state } from './state.js';
 import { escapeHtml, toJsDate, getCurrentDay } from './utils.js';
 import { weeklyThemes, ENTRIES_PER_PAGE, START_DATE, TOTAL_DAYS } from './config.js';
@@ -17,9 +15,12 @@ export function cacheDOMElements() {
             'load-more-container', 'empty-state', 'empty-state-message', 'subscribe-btn', 'hero-subscribe-btn',
             'subscribe-modal', 'close-subscribe', 'sms-modal', 'close-sms-modal', 'toast',
             'content-feed', 'day-dots-container', 'feed-announcer',
-            'welcome-modal', 'show-welcome-btn', 'close-welcome-modal', 'weekly-theme', 'newsletter-secondary-btn'
+            'welcome-modal', 'show-welcome-btn', 'close-welcome-modal', 'weekly-theme', 'newsletter-secondary-btn',
+            'sprint-details'
         ].map(id => [id.replace(/-(\w)/g, (m, g) => g.toUpperCase()), document.getElementById(id)])
     );
+    
+    console.log('✅ DOM elements cached');
 }
 
 let scrollObserver;
@@ -30,8 +31,9 @@ export function initializeScrollObserver() {
             if (entry.isIntersecting) entry.target.classList.add('is-visible');
         });
     }, { threshold: 0.1 });
+    
+    console.log('✅ Scroll observer initialized');
 }
-
 
 function createEntryCard(entry) {
     const isHearted = state.heartedPosts[entry.id];
@@ -71,11 +73,19 @@ function createEntryCard(entry) {
     `;
     scrollObserver.observe(card);
     return card;
-};
+}
 
 export function renderEntries() {
+    console.log('🎨 Rendering entries...');
+    
     DOMElements.skeletonLoaders.classList.add('hidden');
     DOMElements.contentFeed.setAttribute('aria-busy', 'false');
+    
+    // Show sprint details section
+    if (DOMElements.sprintDetails) {
+        DOMElements.sprintDetails.classList.remove('hidden');
+        DOMElements.sprintDetails.classList.add('fade-in-section', 'is-visible');
+    }
 
     const day = getCurrentDay();
     const todayEntries = state.filteredEntries.filter(d => d.day === day);
@@ -83,23 +93,32 @@ export function renderEntries() {
 
     const publishedEntriesCount = state.allEntries.length;
 
+    // Update all counters
     DOMElements.headerEntries.textContent = publishedEntriesCount;
     DOMElements.todayCount.textContent = todayEntries.length;
     DOMElements.freeCount.textContent = state.allEntries.filter(d => d.access === 'Free').length;
     DOMElements.paidCount.textContent = state.allEntries.filter(d => d.access === 'Paid').length;
+    
+    // Calculate streak
     const daysWithEntries = new Set(state.allEntries.map(d => d.day)).size;
     DOMElements.streakCount.textContent = daysWithEntries;
     DOMElements.headerStreak.textContent = daysWithEntries;
 
+    // Render day dots
+    renderDayDots();
+
+    // Render today's entries
     DOMElements.todaySection.classList.toggle('hidden', todayEntries.length === 0);
     DOMElements.todayEntries.innerHTML = '';
     todayEntries.forEach(d => DOMElements.todayEntries.appendChild(createEntryCard(d)));
 
+    // Render previous entries
     const previousToShow = previousEntries.slice(0, state.visiblePreviousEntries);
     DOMElements.previousSection.classList.toggle('hidden', previousToShow.length === 0);
     DOMElements.previousEntries.innerHTML = '';
     previousToShow.forEach(d => DOMElements.previousEntries.appendChild(createEntryCard(d)));
 
+    // Load more button
     DOMElements.loadMoreContainer.innerHTML = '';
     if (previousEntries.length > state.visiblePreviousEntries) {
         const loadMoreBtn = document.createElement('button');
@@ -112,11 +131,43 @@ export function renderEntries() {
         DOMElements.loadMoreContainer.appendChild(loadMoreBtn);
     }
 
+    // Empty state
     if (state.filteredEntries.length === 0 && todayEntries.length === 0) {
         DOMElements.emptyState.classList.remove('hidden');
-        DOMElements.emptyStateMessage.textContent = (state.searchQuery || state.currentFilter !== 'all') ? 'No entries found.' : 'No entries yet.';
+        DOMElements.emptyStateMessage.textContent = (state.searchQuery || state.currentFilter !== 'all') ? 'No entries found.' : 'No entries yet. Check back soon!';
     } else {
         DOMElements.emptyState.classList.add('hidden');
+    }
+    
+    console.log(`✅ Rendered ${todayEntries.length} today, ${previousToShow.length} previous`);
+}
+
+function renderDayDots() {
+    if (!DOMElements.dayDotsContainer) return;
+    
+    const currentDay = getCurrentDay();
+    const daysWithEntries = new Set(state.allEntries.map(d => d.day));
+    
+    DOMElements.dayDotsContainer.innerHTML = '';
+    
+    for (let i = 1; i <= TOTAL_DAYS; i++) {
+        const dot = document.createElement('div');
+        dot.className = 'day-dot w-2 h-2 rounded-full transition-all cursor-pointer';
+        dot.title = `Day ${i}`;
+        
+        if (i === currentDay) {
+            dot.classList.add('current');
+        } else if (daysWithEntries.has(i)) {
+            dot.style.backgroundColor = 'var(--success)';
+        } else if (i < currentDay) {
+            dot.style.backgroundColor = 'var(--text-muted)';
+            dot.style.opacity = '0.3';
+        } else {
+            dot.style.backgroundColor = 'var(--text-muted)';
+            dot.style.opacity = '0.2';
+        }
+        
+        DOMElements.dayDotsContainer.appendChild(dot);
     }
 }
 
@@ -151,12 +202,12 @@ export function updateWeeklyTheme() {
     }
     DOMElements.weeklyTheme.innerHTML = `<strong class="font-bold">This Week's Theme:</strong> ${themeText}`;
     DOMElements.weeklyTheme.parentElement.style.display = 'inline-block';
-};
+}
 
 export function updateProgress() {
     const day = getCurrentDay();
     if (DOMElements.headerDay) DOMElements.headerDay.textContent = day;
-};
+}
 
 export function setupModals() {
     const setupModal = (modal, openBtns, closeBtn) => {
@@ -169,6 +220,8 @@ export function setupModals() {
 
     setupModal(DOMElements.welcomeModal, [DOMElements.showWelcomeBtn], DOMElements.closeWelcomeModal);
     setupModal(DOMElements.subscribeModal, [DOMElements.subscribeBtn, DOMElements.heroSubscribeBtn, DOMElements.newsletterSecondaryBtn], DOMElements.closeSubscribe);
+    
+    console.log('✅ Modals initialized');
 }
 
 export function updateChallengeDates() {
@@ -176,4 +229,3 @@ export function updateChallengeDates() {
     const endDate = new Date(START_DATE.getTime() + ((TOTAL_DAYS - 1) * MS_PER_DAY));
     DOMElements.challengeDates.innerHTML = `${START_DATE.toLocaleDateString('en-US', { month: 'long', day: 'numeric' })} &mdash; ${endDate.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}`;
 }
-
