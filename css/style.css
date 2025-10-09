@@ -482,3 +482,47 @@ main .card {
 .share-btn:hover {
   background: rgba(255, 255, 255, 0.1);
 }
+/* Add this to the bottom of your style.css file */
+
+/* ==================== HERO IMAGE - MUCH SMALLER SIZE ==================== */
+
+.hero-image {
+  max-width: 400px !important; /* Much smaller! */
+  width: 100% !important;
+  height: auto !important;
+  margin: 0 auto 2rem auto !important; /* Added bottom margin */
+}
+
+/* Responsive sizes for different screens */
+@media (max-width: 768px) {
+  .hero-image {
+    max-width: 300px !important; /* Even smaller on tablet */
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-image {
+    max-width: 250px !important; /* Smallest on mobile */
+  }
+}
+
+/* Reduce spacing around hero section to make it more compact */
+section[aria-labelledby="hero-title"] {
+  padding-top: 2rem !important; 
+  padding-bottom: 2rem !important;
+  min-height: auto !important; /* Remove the min-height forcing it to be 80vh */
+}
+
+/* Tighten up spacing between elements */
+section[aria-labelledby="hero-title"] .font-newsreader {
+  margin-top: 1rem !important;
+  margin-bottom: 1rem !important;
+}
+
+section[aria-labelledby="hero-title"] #hero-tagline {
+  margin-top: 1rem !important;
+}
+
+section[aria-labelledby="hero-title"] .hero-anim-item {
+  margin-top: 2rem !important;
+}
