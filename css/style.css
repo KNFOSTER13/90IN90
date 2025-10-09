@@ -241,7 +241,6 @@ p { max-width: 65ch; }
   text-decoration: underline;
 }
 
-
 .btn:hover svg {
     transform: scale(1.1) rotate(3deg);
 }
@@ -293,16 +292,19 @@ p { max-width: 65ch; }
 }
 
 .day-dot {
-    transition: transform 0.2s ease, background-color 0.2s ease;
+  background-color: var(--text-muted);
+  opacity: 0.3;
+  transition: transform 0.2s ease, background-color 0.2s ease;
 }
 .day-dot:hover {
-    transform: scale(1.5);
-    background-color: var(--accent-bright);
+  transform: scale(1.5);
+  background-color: var(--accent-bright);
 }
 .day-dot.current {
-    background-color: var(--cta);
-    transform: scale(1.75);
-    box-shadow: 0 0 8px var(--cta);
+  background-color: var(--cta) !important;
+  opacity: 1 !important;
+  transform: scale(1.75);
+  box-shadow: 0 0 8px var(--cta);
 }
 
 .stat-card {
@@ -330,50 +332,35 @@ p { max-width: 65ch; }
 .skeleton-card { background: var(--surface); border: 1px solid var(--border-color); border-radius: 1rem; padding: 1rem; }
 .skeleton-line { height: 1rem; margin-bottom: 0.5rem; background: linear-gradient(90deg, rgba(212, 165, 255, 0.1) 0%, rgba(212, 165, 255, 0.2) 50%, rgba(212, 165, 255, 0.1) 100%); background-size: 200% 100%; animation: shimmer 1.5s ease-in-out infinite; border-radius: 0.25rem; }
 @keyframes shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
- .filter-btn {
-      padding: 0.5rem 1rem;
-      background: transparent;
-      border: 1px solid rgba(212, 165, 255, 0.25);
-      color: var(--text-secondary);
-      border-radius: 0.5rem;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      font-size: 0.875rem;
-  }
 
-  .filter-btn:hover {
-      background: rgba(212, 165, 255, 0.15);
-      border-color: rgba(212, 165, 255, 0.35);
-  }
+.filter-btn {
+  padding: 0.5rem 1rem;
+  background: transparent;
+  border: 1px solid rgba(212, 165, 255, 0.25);
+  color: var(--text-secondary);
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 0.875rem;
+}
 
-  .filter-btn.active {
-      background: rgba(212, 165, 255, 0.25);
-      color: var(--accent-bright);
-      border-color: var(--accent);
-  }
+.filter-btn:hover {
+  background: rgba(212, 165, 255, 0.15);
+  border-color: rgba(212, 165, 255, 0.35);
+}
+
+.filter-btn.active {
+  background: rgba(212, 165, 255, 0.25);
+  color: var(--accent-bright);
+  border-color: var(--accent);
+}
 
 ::-webkit-scrollbar { width: 8px; }
 ::-webkit-scrollbar-track { background: rgba(55, 37, 99, 0.2); }
 ::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 4px; }
 ::-webkit-scrollbar-thumb:hover { background: var(--accent-bright); }
 
-#hero-title {
-  opacity: 1 !important;
-  transform: translateY(0) !important;
-}
-
-.hero-anim-item {
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
-}
-.hero-anim-item.is-visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-#hero-title { transition-delay: 0.2s; }
-#hero-tagline { transition-delay: 0.4s; }
-  
+/* Mobile Responsive */
 @media (max-width: 768px) {
   .header-nav { flex-direction: column; gap: 0.5rem; }
   .header-counters { order: 3; width: 100%; justify-content: center; }
@@ -381,80 +368,24 @@ p { max-width: 65ch; }
   .header-logo { order: 1; }
   h1 { font-size: 2.5rem !important; }
 }
+
 main > section + section, main > section + nav {
   margin-top: 6rem;
 }
-/* Quick Fixes */
 
-/* Ensure sprint details are visible */
-#sprint-details {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* Day dots styling */
-.day-dot {
-  background-color: var(--text-muted);
-  opacity: 0.3;
-}
-
-.day-dot.current {
-  background-color: var(--cta) !important;
-  opacity: 1 !important;
-  transform: scale(1.5);
-  box-shadow: 0 0 8px var(--cta);
-}
-
-/* Hero animations - ensure they show */
-.hero-image {
-  animation: fadeInUp 1s ease-out;
-}
-
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* Ensure modals work properly */
-.fixed.hidden {
-  display: none !important;
-}
-
-.fixed:not(.hidden) {
-  display: flex !important;
-}
-
-/* Loading states */
-#skeleton-loaders.hidden {
-  display: none;
-}
-
-/* Ensure cards are visible */
-.card {
-  opacity: 1 !important;
-}
-
-/* Fix share button */
-.share-btn {
-  cursor: pointer;
-  padding: 0.25rem 0.5rem;
-  border-radius: 0.25rem;
-  transition: all 0.2s;
-}
-
-.share-btn:hover {
-  background: rgba(255, 255, 255, 0.1);
-}
-/* ==================== HERO SECTION FIX ==================== */
-
-/* Force hero elements to be visible immediately */
+/* ==================== HERO SECTION - ALWAYS VISIBLE ==================== */
 .hero-anim-item {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+  visibility: visible !important;
+}
+
+.hero-anim-item.is-visible {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+}
+
+#hero-title {
   opacity: 1 !important;
   transform: translateY(0) !important;
   visibility: visible !important;
@@ -476,9 +407,21 @@ main > section + section, main > section + nav {
   opacity: 1 !important;
   visibility: visible !important;
   display: block !important;
+  animation: fadeInUp 1s ease-out;
 }
 
-/* Make sure buttons and links are visible and clickable */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Ensure all hero buttons and links are visible and clickable */
 .hero-anim-item .btn,
 .hero-anim-item button,
 #hero-subscribe-btn,
@@ -497,8 +440,45 @@ main > section + section, main > section + nav {
   pointer-events: auto !important;
 }
 
-/* Ensure the container is visible */
+/* Ensure the hero container is visible */
 section[aria-labelledby="hero-title"] {
   opacity: 1 !important;
   visibility: visible !important;
+}
+
+/* ==================== SPRINT DETAILS & OTHER SECTIONS ==================== */
+#sprint-details {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Ensure modals work properly */
+.fixed.hidden {
+  display: none !important;
+}
+
+.fixed:not(.hidden) {
+  display: flex !important;
+}
+
+/* Loading states */
+#skeleton-loaders.hidden {
+  display: none;
+}
+
+/* Ensure cards show properly */
+main .card {
+  opacity: 1 !important;
+}
+
+/* Share button styling */
+.share-btn {
+  cursor: pointer;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+  transition: all 0.2s;
+}
+
+.share-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
 }
